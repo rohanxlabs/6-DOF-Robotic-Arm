@@ -1,289 +1,248 @@
-<!-- Animated Header Banner -->
-<div align="center">
+🤖 6-DOF Robotic Arm — AI-Powered Manipulation System
 
-```
-██████╗      ██████╗  ██████╗ ███████╗
-██╔════╝     ██╔══██╗██╔═══██╗██╔════╝
-███████╗     ██║  ██║██║   ██║█████╗  
-╚════██║     ██║  ██║██║   ██║██╔══╝  
-███████║     ██████╔╝╚██████╔╝██║     
-╚══════╝     ╚═════╝  ╚═════╝ ╚═╝     
-  6-DOF Robotic Arm — rohanxlabs
-```
+A fully modular and scalable 6 Degrees of Freedom (6-DOF) Robotic Arm system designed for simulation, perception, planning, and intelligent control.
 
-# 🦾 6-DOF Robotic Arm
-
-**A 6 Degrees-of-Freedom robotic arm simulation with Forward & Inverse Kinematics, trajectory planning, and ROS2 integration.**
-
-[
-
-![ROS2](https://img.shields.io/badge/ROS2-Humble-blue?style=for-the-badge&logo=ros)
-
-](https://docs.ros.org/en/humble/)
-[
-
-![Python](https://img.shields.io/badge/Python-3.10+-yellow?style=for-the-badge&logo=python)
-
-](https://python.org)
-[
-
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-
-](LICENSE)
-[
-
-![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=for-the-badge)
-
-]()
-[
-
-![GitHub stars](https://img.shields.io/github/stars/rohanxlabs/6-DOF-Robotic-Arm?style=for-the-badge)
-
-](https://github.com/rohanxlabs/6-DOF-Robotic-Arm/stargazers)
-
-</div>
+This project demonstrates a complete robotics pipeline combining computer vision, motion planning, and kinematics, making it suitable for research, industrial automation, and AI-driven robotics applications.
 
 ---
 
-<!-- Demo GIF — replace with your actual recording -->
-<div align="center">
-  <img src="assets/demo.gif" alt="6-DOF Arm Demo" width="700"/>
-  <br/>
-  <em>↑ Replace this with a screen recording of your arm in action (Gazebo/RViz/real hardware)</em>
-</div>
+🚀 Key Highlights
+
+- 🦾 Full 6-DOF robotic arm control system
+- 🎯 Forward & Inverse Kinematics implementation
+- 🎥 Vision-based perception pipeline (AI-ready)
+- 🧠 Modular architecture (Perception + Planning + Control)
+- ⚙️ ROS / Simulation compatible design
+- ✋ Integrated gripper control
+- 📡 Real-time execution workflow
+- 🔌 Easily extendable for AI & Reinforcement Learning
 
 ---
 
-## 📌 Table of Contents
+🏗️ System Architecture
 
-- [About](#-about)
-- [Demo](#-demo)
-- [Features](#-features)
-- [Architecture](#️-architecture)
-- [Kinematics](#-kinematics)
-- [Getting Started](#-getting-started)
-- [Usage](#-usage)
-- [Project Structure](#-project-structure)
-- [Roadmap](#️-roadmap)
-- [Contributing](#-contributing)
-- [License](#-license)
-
----
-
-## 🧠 About
-
-This project implements a **6 Degrees-of-Freedom robotic arm** from scratch — covering the complete pipeline from mathematical modeling to simulation and (optionally) real hardware deployment.
-
-Built as part of an ongoing exploration into **embodied AI**, **robot manipulation**, and the **sim-to-real pipeline**.
-
-> **Why 6 DOF?**  
-> 6 joints give a robot arm full positional and orientational freedom in 3D space — the minimum needed for general-purpose manipulation tasks.
-
----
-
-## 🎬 Demo
-
-<div align="center">
-
-| Forward Kinematics | Inverse Kinematics | Trajectory Planning |
-|:------------------:|:------------------:|:-------------------:|
-| <img src="assets/fk_demo.gif" width="220"/> | <img src="assets/ik_demo.gif" width="220"/> | <img src="assets/trajectory.gif" width="220"/> |
-
-> 💡 **To add your GIFs:** Record your terminal/simulation with [Peek](https://github.com/phw/peek) or [OBS](https://obsproject.com/), save to `assets/`, and replace the paths above.
-
-</div>
+                +----------------------+
+                |     Perception       |
+                |  (Camera + Detection)|
+                +----------+-----------+
+                           |
+                           v
+                +----------------------+
+                |      Planning        |
+                | (Mapping + Path Plan)|
+                +----------+-----------+
+                           |
+                           v
+                +----------------------+
+                |       Control        |
+                | (IK + Trajectory)    |
+                +----------+-----------+
+                           |
+                           v
+                +----------------------+
+                |     Robotic Arm      |
+                |   (Execution Layer)  |
+                +----------------------+
 
 ---
 
-## ✨ Features
+📁 Project Structure
 
-```
-✅  Forward Kinematics   — DH parameter-based FK solver
-✅  Inverse Kinematics   — Geometric + analytical IK solver
-✅  Trajectory Planning  — Joint-space interpolation
-✅  Visualization        — RViz / Matplotlib 3D plots
-✅  Simulation           — Gazebo integration (optional)
-🔧  Hardware Interface   — Servo/stepper motor control (WIP)
-```
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────┐
-│               6-DOF Robotic Arm              │
-├─────────────┬───────────────┬───────────────┤
-│  Kinematics │   Planning    │   Interface   │
-│             │               │               │
-│  ┌────────┐ │ ┌───────────┐ │ ┌───────────┐ │
-│  │   FK   │ │ │Trajectory │ │ │  ROS2     │ │
-│  └────────┘ │ │Interpolate│ │ │  Node     │ │
-│  ┌────────┐ │ └───────────┘ │ └───────────┘ │
-│  │   IK   │ │ ┌───────────┐ │ ┌───────────┐ │
-│  └────────┘ │ │ Collision │ │ │  Gazebo   │ │
-│             │ │  Checking │ │ │  Sim      │ │
-│             │ └───────────┘ │ └───────────┘ │
-└─────────────┴───────────────┴───────────────┘
-```
+6-DOF-Robotic-Arm/
+│── main.py                     # Entry point of system
+│
+├── perception/                # Vision System
+│   ├── camera.py              # Camera input handling
+│   ├── detection.py           # Object detection logic
+│   ├── view.py                # Visualization
+│
+├── control/                   # Motion Control
+│   ├── kinematics.py          # FK & IK calculations
+│   ├── trajectory.py          # Path interpolation
+│   ├── gripper.py             # Gripper control
+│
+├── planning/                  # Planning Layer
+│   ├── planner.py             # Motion planning
+│   ├── mapping.py             # Environment mapping
+│
+├── utils/                     # Utilities
+│   ├── config.py              # Configurations
+│   ├── helpers.py             # Helper functions
+│
+└── requirements.txt
 
 ---
 
-## 📐 Kinematics
+⚙️ Tech Stack
 
-### Denavit-Hartenberg Parameters
-
-| Joint | θᵢ | dᵢ | aᵢ | αᵢ |
-|:-----:|:--:|:--:|:--:|:--:|
-| 1     | θ₁ | d₁ | 0  | 90° |
-| 2     | θ₂ | 0  | a₂ | 0°  |
-| 3     | θ₃ | 0  | a₃ | 90° |
-| 4     | θ₄ | d₄ | 0  | -90°|
-| 5     | θ₅ | 0  | 0  | 90° |
-| 6     | θ₆ | d₆ | 0  | 0°  |
-
-### Transformation Matrix (per joint)
-
-$$
-^{i-1}T_i = \begin{bmatrix}
-\cos\theta_i & -\sin\theta_i\cos\alpha_i & \sin\theta_i\sin\alpha_i & a_i\cos\theta_i \\
-\sin\theta_i & \cos\theta_i\cos\alpha_i & -\cos\theta_i\sin\alpha_i & a_i\sin\theta_i \\
-0 & \sin\alpha_i & \cos\alpha_i & d_i \\
-0 & 0 & 0 & 1
-\end{bmatrix}
-$$
+- Python
+- ROS / ROS2 (optional integration)
+- OpenCV
+- NumPy
+- MoveIt (for motion planning)
+- Gazebo / RViz (simulation)
 
 ---
 
-## 🚀 Getting Started
+📦 Installation
 
-### Prerequisites
+1️⃣ Clone Repository
 
-```bash
-# Python 3.10+
-python --version
-
-# ROS2 Humble (optional, for ROS integration)
-# https://docs.ros.org/en/humble/Installation.html
-
-# Dependencies
-pip install numpy matplotlib sympy
-```
-
-### Installation
-
-```bash
-# Clone the repository
 git clone https://github.com/rohanxlabs/6-DOF-Robotic-Arm.git
 cd 6-DOF-Robotic-Arm
 
-# Install Python dependencies
+---
+
+2️⃣ Create Virtual Environment
+
+python -m venv venv
+
+Activate:
+
+- Windows:
+
+venv\Scripts\activate
+
+- Linux/Mac:
+
+source venv/bin/activate
+
+---
+
+3️⃣ Install Dependencies
+
 pip install -r requirements.txt
-```
 
 ---
 
-## 🎮 Usage
+4️⃣ (Optional) ROS Setup
 
-### Run Forward Kinematics
-
-```bash
-python src/forward_kinematics.py --angles 0 45 -30 0 90 0
-```
-
-### Run Inverse Kinematics
-
-```bash
-python src/inverse_kinematics.py --target 0.3 0.1 0.5 --orientation 0 0 0
-```
-
-### Visualize in 3D
-
-```bash
-python src/visualize.py
-```
-
-### Launch with ROS2
-
-```bash
-# Source ROS2
-source /opt/ros/humble/setup.bash
-
-# Build
-colcon build
-source install/setup.bash
-
-# Launch
-ros2 launch arm_bringup arm_sim.launch.py
-```
+cd ~/catkin_ws
+catkin_make
+source devel/setup.bash
 
 ---
 
-## 📁 Project Structure
+▶️ Usage
 
-```
-6-DOF-Robotic-Arm/
-│
-├── src/
-│   ├── forward_kinematics.py    # DH-based FK solver
-│   ├── inverse_kinematics.py    # Geometric IK solver
-│   ├── trajectory.py            # Joint-space trajectory planner
-│   └── visualize.py             # 3D matplotlib visualization
-│
-├── ros2_ws/                     # ROS2 workspace (optional)
-│   └── src/
-│       └── arm_bringup/
-│           ├── launch/
-│           └── urdf/
-│
-├── assets/                      # GIFs, images, diagrams
-│   ├── demo.gif
-│   ├── fk_demo.gif
-│   └── ik_demo.gif
-│
-├── tests/                       # Unit tests
-├── requirements.txt
-└── README.md
-```
+🔹 Run Complete System
+
+python main.py
 
 ---
 
-## 🗺️ Roadmap
+🔹 Run Individual Modules
 
-```
-[x] Forward Kinematics (DH Parameters)
-[x] Inverse Kinematics (Geometric)
-[x] 3D Visualization
-[ ] MoveIt2 Integration
-[ ] Gazebo Simulation
-[ ] Pick-and-Place Task
-[ ] Real Hardware (Servo/Stepper)
-[ ] LLM-based task planning (SayCan-style)
-```
+Perception System
 
----
+python perception/camera.py
 
-## 🤝 Contributing
+Control System
 
-Contributions, issues, and feature requests are welcome!
+python control/kinematics.py
 
-```bash
-# Fork → Clone → Branch → PR
-git checkout -b feature/your-feature-name
-```
+Planning System
+
+python planning/planner.py
 
 ---
 
-## 📄 License
+🧠 Working Pipeline
 
-This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+1. Perception Layer
+
+- Captures real-time camera feed
+- Detects objects (extendable with AI models like YOLO)
+
+2. Planning Layer
+
+- Maps environment
+- Computes optimal trajectory
+
+3. Control Layer
+
+- Solves inverse kinematics
+- Generates joint movements
+
+4. Execution Layer
+
+- Sends commands to robotic arm
+- Performs pick/place or manipulation
 
 ---
 
-<div align="center">
+📊 Applications
 
-Made with 🤖 by [rohanxlabs](https://github.com/rohanxlabs)
+- Industrial Automation
+- Pick-and-Place Robotics
+- AI-based Object Manipulation
+- Robotics Research & Simulation
+- Smart Manufacturing Systems
 
-⭐ **Star this repo if you find it useful!**
+---
 
-</div>
+🔮 Future Enhancements
+
+- 🤖 Reinforcement Learning for autonomous control
+- 🎯 YOLO / SAM-based advanced perception
+- 🗺️ SLAM-based environment mapping
+- 🦾 Real hardware integration
+- 🌐 Web dashboard / remote control system
+
+---
+
+📸 Demo (Add Your Media)
+
+- 🎥 Add simulation video (recommended)
+- 🖼️ Add system screenshots
+- 📊 Add performance results
+
+---
+
+🤝 Contributing
+
+Contributions are welcome and encouraged.
+
+1. Fork the repository
+2. Create your branch (feature/your-feature)
+3. Commit your changes
+4. Push to GitHub
+5. Open a Pull Request
+
+---
+
+📜 License
+
+This project is licensed under the MIT License.
+
+---
+
+👨‍💻 Author
+
+RohanXLabs
+
+- GitHub: https://github.com/rohanxlabs
+- LinkedIn: (Add your profile link)
+
+---
+
+⭐ Support & Feedback
+
+If you found this project useful:
+
+- ⭐ Star the repository
+- 🍴 Fork it
+- 📢 Share with the community
+
+---
+
+💡 Note for Recruiters
+
+This project demonstrates:
+
+- Strong understanding of robotics fundamentals
+- Practical implementation of kinematics & planning
+- Ability to design modular AI-integrated systems
+- Hands-on experience with real-world robotics pipelines
+
+---
